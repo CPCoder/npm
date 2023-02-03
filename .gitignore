@@ -1,2 +1,5 @@
 .env
 /.idea
+/docker/nginx/logs/frontend
+/docker/nginx/logs/backend
+/docker/nginx/logs/revproxy

@@ -21,6 +21,17 @@ user@host:~/my-projects/myproject$ cp .env.dist .env
 ```
 Now you can open the file `.env` and set your desired options.
 
+### Additional configuration on host system ###
+You need to add new entries to you `/etc/hosts` file:
+```bash
+user@host:$ sudo nano /etc/hosts
+```
+Content:
+```bash
+127.0.0.1   frontent.local
+127.0.0.1   backend.local
+```
+
 ### Docker ###
 After you're done with the configuration in the `.env` file, you can build the docker environment.
 ```bash
@@ -36,3 +47,13 @@ CONTAINER ID   IMAGE                COMMAND                  CREATED          ST
 294bad6ca447   nginx:alpine         "/docker-entrypoint.…"   12 minutes ago   Up 12 minutes   0.0.0.0:8081->80/tcp, :::8081->80/tcp        frontend
 fc3210b8e4ff   mariadb:latest       "docker-entrypoint.s…"   12 minutes ago   Up 12 minutes   0.0.0.0:3306->3306/tcp, :::3306->3306/tcp    maria
 ```
+
+## Test your environment ##
+To test the successful setup of your environment, you just open your web browser and navigate to the domains frontend.local and backend.local.
+
+### Frontent (http://frontend.local) ###
+![Frontend web browser screenshot](readme-images/frontend.png?raw=true "Frontend web browser screenshot")
+### Backend (index.php) (http://backend.local) ###
+![Backend web browser screenshot](readme-images/backend-index.png?raw=true "Backend web browser screenshot (index.php)")
+### Backend (_info.php) (http://backend.local/_info.php) ###
+![Backend web browser screenshot](readme-images/backend-info.png?raw=true "Backend web browser screenshot (_info.php)")
