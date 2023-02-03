@@ -11,7 +11,7 @@ For this to work, you have to add new entries for both these domains in your "ho
 To download this project skeleton, just clone or download this repository.
 ```bash
 user@host:~$ cd my-projects/
-user@host:~/my-projects$ git clone ddddd
+user@host:~/my-projects$ git clone https://github.com/CPCoder/npm.git
 ```
 ### Configuration ###
 To configure the docker environment for this project skeleton, you have to copy the `.env.dist` first.
