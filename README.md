@@ -11,7 +11,7 @@ For this to work, you have to add new entries for both these domains in your "ho
 To download this project skeleton, just clone or download this repository.
 ```bash
 user@host:~$ cd my-projects/
-user@host:~/my-projects$ git clone https://github.com/CPCoder/npm.git
+user@host:~/my-projects$ git clone https://github.com/CPCoder/npm.git myproject
 ```
 ### Configuration ###
 To configure the docker environment for this project skeleton, you have to copy the `.env.dist` first.
@@ -28,7 +28,7 @@ user@host:$ sudo nano /etc/hosts
 ```
 Content:
 ```bash
-127.0.0.1   frontent.local
+127.0.0.1   frontend.local
 127.0.0.1   backend.local
 ```
 
@@ -51,7 +51,7 @@ fc3210b8e4ff   mariadb:latest       "docker-entrypoint.s…"   12 minutes ago   
 ## Test your environment ##
 To test the successful setup of your environment, you just open your web browser and navigate to the domains frontend.local and backend.local.
 
-### Frontent (http://frontend.local) ###
+### Frontend (http://frontend.local) ###
 ![Frontend web browser screenshot](readme-images/frontend.png?raw=true "Frontend web browser screenshot")
 ### Backend (index.php) (http://backend.local) ###
 ![Backend web browser screenshot](readme-images/backend-index.png?raw=true "Backend web browser screenshot (index.php)")
