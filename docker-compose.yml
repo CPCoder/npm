@@ -14,7 +14,7 @@ services:
       - "${REVPROXY_PUBLIC_PORT:-80}:80"
     volumes:
       - ./docker/nginx/revproxy.conf:/etc/nginx/conf.d/default.conf
-      - ./docker/nginx/logs/revproxy:/var/log/nginx
+      - ./docker/nginx/logs:/var/log/nginx
       # Using timezone and system time from host
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
@@ -33,7 +33,7 @@ services:
     volumes:
       - ./frontend:/var/www/main
       - ./docker/nginx/frontend.conf:/etc/nginx/conf.d/default.conf
-      - ./docker/nginx/logs/frontend:/var/log/nginx
+      - ./docker/nginx/logs:/var/log/nginx
       # Using timezone and system time from host
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
@@ -53,7 +53,7 @@ services:
     volumes:
       - ./backend:/var/www/main
       - ./docker/nginx/backend.conf:/etc/nginx/conf.d/default.conf
-      - ./docker/nginx/logs/backend:/var/log/nginx
+      - ./docker/nginx/logs:/var/log/nginx
       # Using timezone and system time from host
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
