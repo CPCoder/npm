@@ -22,7 +22,7 @@ user@host:~/my-projects/myproject$ cp .env.dist .env
 Now you can open the file `.env` and set your desired options.
 
 ### Additional configuration on host system ###
-You need to add new entries to you `/etc/hosts` file:
+You need to add new entries to your `/etc/hosts` file:
 ```bash
 user@host:$ sudo nano /etc/hosts
 ```
