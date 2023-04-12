@@ -3,8 +3,9 @@ version: '3.7'
 services:
 
   revproxy:
-    container_name: revproxy
-    build: docker/nginx
+    build:
+      context: ${contextdir}
+      dockerfile: docker/nginx/Dockerfile
     depends_on:
       - frontend
       - backend
@@ -23,7 +24,6 @@ services:
       BACKEND_DOMAIN: "${BACKEND_DOMAIN:-backend.local}"
 
   frontend:
-    container_name: frontend
     image: nginx:alpine
     tty: true
     ports:
@@ -39,7 +39,6 @@ services:
       - /etc/localtime:/etc/localtime:ro
 
   backend:
-    container_name: backend
     image: nginx:alpine
     depends_on:
       - php-fpm
@@ -59,7 +58,6 @@ services:
       - /etc/localtime:/etc/localtime:ro
 
   php-fpm:
-    container_name: php
     build:
       context: ${contextdir}
       dockerfile: docker/php/Dockerfile
@@ -75,12 +73,11 @@ services:
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
     links:
-      - database
+      - maria
     depends_on:
-      - database
+      - maria
 
-  database:
-    container_name: maria
+  maria:
     image: mariadb:${MARIADB_VERSION:-latest}
     tty: true
     volumes:
