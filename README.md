@@ -1,59 +1,33 @@
-# NPM (Nginx, PHP, MariaDB)
-NPM is a docker container setup with Nginx, PHP and MariaDB.
+# N.P.M. (Nginx PHP MariaDB)
+This repository contains a lightweight docker container setup for PHP applications development.
+After executing `docker compose up -d`, 2 containers will be created:
+* `npm-webserver-1`
+* `npm-maria-1`
 
-This project skeleton provides the possibility to serve a separated frontend like Angular, and a backend like Laravel in the same environment. 
+If you have changed the service names in the `docker-compose.yml` file, the container names may be according your naming.
 
-The frontend is then served under the domain "frontend.local" and the backend is served under the domain "backend.local".
-For this to work, you have to add new entries for both these domains in your "hosts" file.
+The container `npm-webserver` comes with pre-installed / configured Nginx web server and PHP 8.3, while the container `npm-maria-1` is the standard MariaDB v11.5 docker image. 
 
-## Installation ##
-### Download ###
-To download this project skeleton, just clone or download this repository.
-```bash
-user@host:~$ cd my-projects/
-user@host:~/my-projects$ git clone https://github.com/CPCoder/npm.git myproject
-```
-### Configuration ###
-To configure the docker environment for this project skeleton, you have to copy the `.env.dist` first.
-```bash
-user@host:~/my-projects$ cd myproject/
-user@host:~/my-projects/myproject$ cp .env.dist .env
-```
-Now you can open the file `.env` and set your desired options.
+## SSL
+To use HTTPS you need to generate an SSL cert + key, plus the Diffie-Hellman params (one-time only).
+**Optional:** To avoid the invalid cert warning in Chrome/Chromium, you can import the generated cert in your web browser.
 
-### Additional configuration on host system ###
-You need to add new entries to your `/etc/hosts` file:
-```bash
-user@host:$ sudo nano /etc/hosts
-```
-Content:
-```bash
-127.0.0.1   frontend.local
-127.0.0.1   backend.local
+### 1. Generate SSL cert + key and Diffie-Hellman params
+Generating SSL cert
+```shell
+user@machine:~/npm$ openssl req -x509 -nodes -days 365 -subj "/C=CA/ST=QC/O=MyLocalAuthority/CN=npm.local" -addext "subjectAltName=DNS:npm.local" -newkey rsa:2048 -keyout ./docker/config/ssl/npm.local.key -out ./docker/config/ssl/npm.local.cert;
 ```
 
-### Docker ###
-After you're done with the configuration in the `.env` file, you can build the docker environment.
-```bash
-user@host:~/my-projects/myproject$ docker-compose up -d
-```
-Once the docker compose process is finished you should see these containers:
-```bash
-user@host:~/my-projects/myproject$ docker ps
-CONTAINER ID   IMAGE                COMMAND                  CREATED          STATUS          PORTS                                        NAMES
-71ad90232272   myproject_revproxy   "/docker-entrypoint.…"   12 minutes ago   Up 12 minutes   0.0.0.0:80->80/tcp, :::80->80/tcp, 443/tcp   revproxy
-4e6141352c05   nginx:alpine         "/docker-entrypoint.…"   12 minutes ago   Up 12 minutes   0.0.0.0:8082->80/tcp, :::8082->80/tcp        backend
-3ed82f0cfdc8   myproject_php-fpm    "docker-php-entrypoi…"   12 minutes ago   Up 12 minutes   9000/tcp                                     php
-294bad6ca447   nginx:alpine         "/docker-entrypoint.…"   12 minutes ago   Up 12 minutes   0.0.0.0:8081->80/tcp, :::8081->80/tcp        frontend
-fc3210b8e4ff   mariadb:latest       "docker-entrypoint.s…"   12 minutes ago   Up 12 minutes   0.0.0.0:3306->3306/tcp, :::3306->3306/tcp    maria
+You only need to (re-)create the SSL certs, if the shipped one are expired or not working.
+
+Generating Diffie-Hellman params
+```shell
+user@machine:~/npm$ openssl dhparam -out ./docker/config/ssl/dhparam.pem 4096
 ```
 
-## Test your environment ##
-To test the successful setup of your environment, you just open your web browser and navigate to the domains frontend.local and backend.local.
+To avoid the invalid cert warning in Chrome/Chromium, you can import the generated cert (`npm-test.cert`) into the web browser.
+1. Open the browser and navigate to `chrome://settings/certificates`
+2. Here you go on the tab "Authorities" and then click on the button "Import"
+3. Navigate to the project directory `docker/config/ssl` and open the previously generated certificate `npm-test.cert`
 
-### Frontend (http://frontend.local) ###
-![Frontend web browser screenshot](readme-images/frontend.png?raw=true "Frontend web browser screenshot")
-### Backend (index.php) (http://backend.local) ###
-![Backend web browser screenshot](readme-images/backend-index.png?raw=true "Backend web browser screenshot (index.php)")
-### Backend (_info.php) (http://backend.local/_info.php) ###
-![Backend web browser screenshot](readme-images/backend-info.png?raw=true "Backend web browser screenshot (_info.php)")
+DONE!
