@@ -1,12 +1,13 @@
 # N.P.M. (Nginx PHP MariaDB)
 This repository contains a lightweight docker container setup for PHP applications development.
+
 After executing `docker compose up -d`, 2 containers will be created:
-* `npm-webserver-1`
-* `npm-maria-1`
+* `npm-webserver-1` (size: approx. 132 MB)
+* `npm-maria-1` (size: approx: 407 MB)
 
 If you have changed the service names in the `docker-compose.yml` file, the container names may be according your naming.
 
-The container `npm-webserver` comes with pre-installed / configured Nginx web server and PHP 8.3, while the container `npm-maria-1` is the standard MariaDB v11.5 docker image. 
+The container `npm-webserver` comes with pre-installed / configured Nginx web server and PHP 8.3 running on Alpine Linux, while the container `npm-maria-1` is the standard MariaDB v11.5 docker image.
 
 ## SSL
 To use HTTPS you need to generate an SSL cert + key, plus the Diffie-Hellman params (one-time only).
