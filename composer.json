@@ -1,7 +1,7 @@
 {
     "name": "shworx/npm",
     "type": "project",
-    "description": "Docker setup with Nginx, PHP 8 and MariaDB.",
+    "description": "Docker setup with Nginx (HTTP/HTTPS), PHP 8 and MariaDB.",
     "autoload": {
         "psr-4": {
             "App\\": "src/"
